@@ -3,39 +3,37 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		108069F2D87379529A08666A /* Pods_MENTAID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB8B6A84518354D9513A044 /* Pods_MENTAID.framework */; };
-		300143271CEC4B9D008379DF /* AppUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300143261CEC4B9D008379DF /* AppUtilities.swift */; };
-		300143291CEC59F4008379DF /* ServiceIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300143281CEC59F4008379DF /* ServiceIdentifiers.swift */; };
-		3001432D1CECADFB008379DF /* CharacteristicReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3001432C1CECADFB008379DF /* CharacteristicReader.swift */; };
-		3042993C1CE6154100E1D2AB /* BaseRevealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304299391CE6154100E1D2AB /* BaseRevealViewController.swift */; };
-		3042993D1CE6154100E1D2AB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042993A1CE6154100E1D2AB /* BaseViewController.swift */; };
-		306ECD621CE61A3600E48BBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306ECD611CE61A3600E48BBD /* AppDelegate.swift */; };
-		30921FD31CD0E7A5009CBDDE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30921FD21CD0E7A5009CBDDE /* NavigationController.swift */; };
-		30921FD51CD0EB55009CBDDE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30921FD41CD0EB55009CBDDE /* MainViewController.swift */; };
-		30A114561CD2367C000F0F02 /* ScannedPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A114551CD2367C000F0F02 /* ScannedPeripheral.swift */; };
-		30A1145A1CD2426B000F0F02 /* ScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A114591CD2426B000F0F02 /* ScannerDelegate.swift */; };
-		30F92D4B1CD9CF0700C73285 /* MAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F92D4A1CD9CF0700C73285 /* MAViewController.swift */; };
-		5214D0CE1886C02A00460637 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5214D0CD1886C02A00460637 /* Settings.bundle */; };
 		5217F3E61859EE0000F2D5BB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5217F3E51859EE0000F2D5BB /* Foundation.framework */; };
 		5217F3E81859EE0000F2D5BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5217F3E71859EE0000F2D5BB /* CoreGraphics.framework */; };
 		5217F3EA1859EE0000F2D5BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5217F3E91859EE0000F2D5BB /* UIKit.framework */; };
-		5217F3F01859EE0000F2D5BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5217F3EE1859EE0000F2D5BB /* InfoPlist.strings */; };
-		5217F3F91859EE0000F2D5BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5217F3F71859EE0000F2D5BB /* Main.storyboard */; };
-		5217F3FE1859EE0000F2D5BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5217F3FD1859EE0000F2D5BB /* Images.xcassets */; };
 		5217F41B1859EEF400F2D5BB /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5217F41A1859EEF400F2D5BB /* CoreBluetooth.framework */; };
 		522636371C60FFB00054A550 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 522636361C60FFB00054A550 /* libz.tbd */; };
 		52BDCB191C3FD31F00E2680F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52BDCB181C3FD31F00E2680F /* Accelerate.framework */; };
 		52BDCBBE1C3FD86900E2680F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52BDCBBD1C3FD86900E2680F /* QuartzCore.framework */; };
-		52BDCBC61C47C2C300E2680F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52BDCBC51C47C2C300E2680F /* Launch Screen.storyboard */; };
-		52D9BC9E1DD0CB760030E824 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9BC9D1DD0CB760030E824 /* Data.swift */; };
-		DA1123841F3163E70031FEA9 /* MENTAID-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5217F3ED1859EE0000F2D5BB /* MENTAID-Info.plist */; };
-		DA1123861F3294B00031FEA9 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1123851F3294B00031FEA9 /* ScannerViewController.swift */; };
 		DA44844F1F32A2C400BDFD1A /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44844D1F32A2C400BDFD1A /* DebugViewController.swift */; };
 		DA4484501F32A2C400BDFD1A /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44844E1F32A2C400BDFD1A /* DataModel.swift */; };
+		DA44845E1F33F5CE00BDFD1A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44845C1F33F5CE00BDFD1A /* MainViewController.swift */; };
+		DA44845F1F33F5CE00BDFD1A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44845D1F33F5CE00BDFD1A /* NavigationController.swift */; };
+		DA4484671F33F60F00BDFD1A /* MAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4484661F33F60F00BDFD1A /* MAViewController.swift */; };
+		DA44846C1F33F62500BDFD1A /* AppUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4484681F33F62500BDFD1A /* AppUtilities.swift */; };
+		DA44846D1F33F62500BDFD1A /* CharacteristicReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4484691F33F62500BDFD1A /* CharacteristicReader.swift */; };
+		DA44846E1F33F62500BDFD1A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44846A1F33F62500BDFD1A /* Data.swift */; };
+		DA44846F1F33F62500BDFD1A /* ServiceIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44846B1F33F62500BDFD1A /* ServiceIdentifiers.swift */; };
+		DA4484721F33F63100BDFD1A /* BaseRevealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4484701F33F63100BDFD1A /* BaseRevealViewController.swift */; };
+		DA4484731F33F63100BDFD1A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4484711F33F63100BDFD1A /* BaseViewController.swift */; };
+		DA4484751F33F63B00BDFD1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4484741F33F63B00BDFD1A /* AppDelegate.swift */; };
+		DA4484771F33F65200BDFD1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4484761F33F65200BDFD1A /* Images.xcassets */; };
+		DA4484791F33F66B00BDFD1A /* MENTAID-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA4484781F33F66B00BDFD1A /* MENTAID-Info.plist */; };
+		DA4484831F33F7A500BDFD1A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA44847F1F33F7A500BDFD1A /* Launch Screen.storyboard */; };
+		DA4484841F33F7A500BDFD1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4484811F33F7A500BDFD1A /* Main.storyboard */; };
+		DA44848E1F33F83000BDFD1A /* ScannedPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44848B1F33F83000BDFD1A /* ScannedPeripheral.swift */; };
+		DA44848F1F33F83000BDFD1A /* ScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44848C1F33F83000BDFD1A /* ScannerDelegate.swift */; };
+		DA4484901F33F83000BDFD1A /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44848D1F33F83000BDFD1A /* ScannerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,40 +51,40 @@
 
 /* Begin PBXFileReference section */
 		22F2F9E869C4C07D977ABB8D /* Pods-MENTAID.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MENTAID.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MENTAID/Pods-MENTAID.debug.xcconfig"; sourceTree = "<group>"; };
-		300143261CEC4B9D008379DF /* AppUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtilities.swift; sourceTree = "<group>"; };
-		300143281CEC59F4008379DF /* ServiceIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceIdentifiers.swift; sourceTree = "<group>"; };
-		3001432C1CECADFB008379DF /* CharacteristicReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacteristicReader.swift; sourceTree = "<group>"; };
-		304299391CE6154100E1D2AB /* BaseRevealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseRevealViewController.swift; path = /ARM/iOS/Mentaid/BaseViewController/BaseRevealViewController.swift; sourceTree = "<absolute>"; };
-		3042993A1CE6154100E1D2AB /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = /ARM/iOS/Mentaid/BaseViewController/BaseViewController.swift; sourceTree = "<absolute>"; };
-		306ECD611CE61A3600E48BBD /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = /ARM/iOS/Mentaid/AppDelegate.swift; sourceTree = "<absolute>"; };
-		30921FD21CD0E7A5009CBDDE /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = /ARM/iOS/Mentaid/MainViewController/NavigationController.swift; sourceTree = "<absolute>"; };
-		30921FD41CD0EB55009CBDDE /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = /ARM/iOS/Mentaid/MainViewController/MainViewController.swift; sourceTree = "<absolute>"; };
-		309F08661E6D706B00B7546A /* Mentaid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Mentaid.entitlements; path = /ARM/iOS/Mentaid/Mentaid.entitlements; sourceTree = "<absolute>"; };
-		30A114551CD2367C000F0F02 /* ScannedPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScannedPeripheral.swift; path = /ARM/iOS/Mentaid/Scanner/ScannedPeripheral.swift; sourceTree = "<absolute>"; };
-		30A114591CD2426B000F0F02 /* ScannerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScannerDelegate.swift; path = /ARM/iOS/Mentaid/Scanner/ScannerDelegate.swift; sourceTree = "<absolute>"; };
-		30F92D4A1CD9CF0700C73285 /* MAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MAViewController.swift; path = /ARM/iOS/Mentaid/MA/MAViewController.swift; sourceTree = "<absolute>"; };
-		5214D0CD1886C02A00460637 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = /ARM/iOS/Settings.bundle; sourceTree = "<absolute>"; };
 		5217F3E21859EE0000F2D5BB /* MENTAID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MENTAID.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5217F3E51859EE0000F2D5BB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5217F3E71859EE0000F2D5BB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		5217F3E91859EE0000F2D5BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		5217F3ED1859EE0000F2D5BB /* MENTAID-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MENTAID-Info.plist"; path = "/ARM/iOS/Mentaid/MENTAID-Info.plist"; sourceTree = "<absolute>"; };
 		5217F3EF1859EE0000F2D5BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5217F3F31859EE0000F2D5BB /* MENTAID-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MENTAID-Prefix.pch"; path = "/ARM/iOS/Mentaid/MENTAID-Prefix.pch"; sourceTree = "<absolute>"; };
-		5217F3F81859EE0000F2D5BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5217F3FD1859EE0000F2D5BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = /ARM/iOS/Mentaid/Images.xcassets; sourceTree = "<absolute>"; };
 		5217F41A1859EEF400F2D5BB /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		522636361C60FFB00054A550 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		52BDCB181C3FD31F00E2680F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		52BDCBBD1C3FD86900E2680F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		52BDCBC51C47C2C300E2680F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		52D9BC9D1DD0CB760030E824 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		845945495D322A181A7C8736 /* Pods-MENTAID.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MENTAID.release.xcconfig"; path = "Pods/Target Support Files/Pods-MENTAID/Pods-MENTAID.release.xcconfig"; sourceTree = "<group>"; };
 		89CF4D2BA242FBAD9F6C46E9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB8B6A84518354D9513A044 /* Pods_MENTAID.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MENTAID.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA1123851F3294B00031FEA9 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScannerViewController.swift; path = /ARM/iOS/Mentaid/Scanner/ScannerViewController.swift; sourceTree = "<absolute>"; };
 		DA44844D1F32A2C400BDFD1A /* DebugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DebugViewController.swift; path = Mentaid/DebugViewController.swift; sourceTree = SOURCE_ROOT; };
 		DA44844E1F32A2C400BDFD1A /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataModel.swift; path = Mentaid/DataModel.swift; sourceTree = SOURCE_ROOT; };
+		DA4484591F33F57500BDFD1A /* Mentaid.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = Mentaid.entitlements; path = Mentaid/Mentaid.entitlements; sourceTree = SOURCE_ROOT; };
+		DA44845C1F33F5CE00BDFD1A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Mentaid/MainViewController/MainViewController.swift; sourceTree = SOURCE_ROOT; };
+		DA44845D1F33F5CE00BDFD1A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = Mentaid/MainViewController/NavigationController.swift; sourceTree = SOURCE_ROOT; };
+		DA4484661F33F60F00BDFD1A /* MAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MAViewController.swift; path = Mentaid/MA/MAViewController.swift; sourceTree = SOURCE_ROOT; };
+		DA4484681F33F62500BDFD1A /* AppUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppUtilities.swift; path = Mentaid/Utilities/AppUtilities.swift; sourceTree = SOURCE_ROOT; };
+		DA4484691F33F62500BDFD1A /* CharacteristicReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacteristicReader.swift; path = Mentaid/Utilities/CharacteristicReader.swift; sourceTree = SOURCE_ROOT; };
+		DA44846A1F33F62500BDFD1A /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Data.swift; path = Mentaid/Utilities/Data.swift; sourceTree = SOURCE_ROOT; };
+		DA44846B1F33F62500BDFD1A /* ServiceIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceIdentifiers.swift; path = Mentaid/Utilities/ServiceIdentifiers.swift; sourceTree = SOURCE_ROOT; };
+		DA4484701F33F63100BDFD1A /* BaseRevealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseRevealViewController.swift; path = Mentaid/BaseViewController/BaseRevealViewController.swift; sourceTree = SOURCE_ROOT; };
+		DA4484711F33F63100BDFD1A /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Mentaid/BaseViewController/BaseViewController.swift; sourceTree = SOURCE_ROOT; };
+		DA4484741F33F63B00BDFD1A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Mentaid/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		DA4484761F33F65200BDFD1A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Mentaid/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		DA4484781F33F66B00BDFD1A /* MENTAID-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "MENTAID-Info.plist"; path = "Mentaid/MENTAID-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DA4484801F33F7A500BDFD1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		DA4484821F33F7A500BDFD1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		DA44848B1F33F83000BDFD1A /* ScannedPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannedPeripheral.swift; sourceTree = "<group>"; };
+		DA44848C1F33F83000BDFD1A /* ScannerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerDelegate.swift; sourceTree = "<group>"; };
+		DA44848D1F33F83000BDFD1A /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		DA4484921F33FD2E00BDFD1A /* MENTAID-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MENTAID-Prefix.pch"; path = "Mentaid/MENTAID-Prefix.pch"; sourceTree = "<group>"; };
+		DA4484991F3404A400BDFD1A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Mentaid/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,29 +118,30 @@
 		304299361CE6154100E1D2AB /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
-				3042993A1CE6154100E1D2AB /* BaseViewController.swift */,
-				304299391CE6154100E1D2AB /* BaseRevealViewController.swift */,
+				DA4484701F33F63100BDFD1A /* BaseRevealViewController.swift */,
+				DA4484711F33F63100BDFD1A /* BaseViewController.swift */,
 			);
 			name = BaseViewController;
-			path = /ARM/iOS/Mentaid/BaseViewController;
-			sourceTree = "<absolute>";
+			path = ../Mentaid/BaseViewController;
+			sourceTree = "<group>";
 		};
 		5214D0CF18881D0200460637 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				52D9BC9D1DD0CB760030E824 /* Data.swift */,
-				300143261CEC4B9D008379DF /* AppUtilities.swift */,
-				300143281CEC59F4008379DF /* ServiceIdentifiers.swift */,
-				3001432C1CECADFB008379DF /* CharacteristicReader.swift */,
+				DA4484681F33F62500BDFD1A /* AppUtilities.swift */,
+				DA4484691F33F62500BDFD1A /* CharacteristicReader.swift */,
+				DA44846A1F33F62500BDFD1A /* Data.swift */,
+				DA44846B1F33F62500BDFD1A /* ServiceIdentifiers.swift */,
 			);
 			name = Utilities;
-			path = /ARM/iOS/Toolbox/../Mentaid/Utilities;
-			sourceTree = "<absolute>";
+			path = ../Mentaid/Utilities;
+			sourceTree = "<group>";
 		};
 		5217F3D91859EE0000F2D5BB = {
 			isa = PBXGroup;
 			children = (
-				5214D0CD1886C02A00460637 /* Settings.bundle */,
+				DA4484981F3404A400BDFD1A /* InfoPlist.strings */,
+				DA4484921F33FD2E00BDFD1A /* MENTAID-Prefix.pch */,
 				5217F3EB1859EE0000F2D5BB /* Mentaid */,
 				5217F3E41859EE0000F2D5BB /* Frameworks */,
 				5217F3E31859EE0000F2D5BB /* Products */,
@@ -177,81 +176,71 @@
 		5217F3EB1859EE0000F2D5BB /* Mentaid */ = {
 			isa = PBXGroup;
 			children = (
+				DA44848A1F33F83000BDFD1A /* Scanner */,
+				DA44847E1F33F7A500BDFD1A /* Base.lproj */,
+				DA4484761F33F65200BDFD1A /* Images.xcassets */,
+				DA4484591F33F57500BDFD1A /* Mentaid.entitlements */,
 				DA44844D1F32A2C400BDFD1A /* DebugViewController.swift */,
 				DA44844E1F32A2C400BDFD1A /* DataModel.swift */,
-				309F08661E6D706B00B7546A /* Mentaid.entitlements */,
-				A8F1142619C1B7EC007F956E /* StoryBoard */,
 				A85667E31B2233A3004A6D3C /* MainViewController */,
-				5236E166187EA7AA0057E974 /* Scanner */,
 				5236E164187EA7850057E974 /* MA */,
 				5214D0CF18881D0200460637 /* Utilities */,
 				304299361CE6154100E1D2AB /* BaseViewController */,
-				306ECD611CE61A3600E48BBD /* AppDelegate.swift */,
-				5217F3FD1859EE0000F2D5BB /* Images.xcassets */,
+				DA4484741F33F63B00BDFD1A /* AppDelegate.swift */,
 				5217F3EC1859EE0000F2D5BB /* Supporting Files */,
 			);
-			name = Mentaid;
-			path = Toolbox;
+			path = Mentaid;
 			sourceTree = "<group>";
 		};
 		5217F3EC1859EE0000F2D5BB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A85667DD1B222AA7004A6D3C /* AppImages */,
-				5217F3ED1859EE0000F2D5BB /* MENTAID-Info.plist */,
+				DA4484781F33F66B00BDFD1A /* MENTAID-Info.plist */,
 				5217F3EE1859EE0000F2D5BB /* InfoPlist.strings */,
-				5217F3F31859EE0000F2D5BB /* MENTAID-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			path = ../Mentaid;
+			path = ../Mentaid/en.lprog;
 			sourceTree = "<group>";
 		};
 		5236E164187EA7850057E974 /* MA */ = {
 			isa = PBXGroup;
 			children = (
-				30F92D4A1CD9CF0700C73285 /* MAViewController.swift */,
+				DA4484661F33F60F00BDFD1A /* MAViewController.swift */,
 			);
 			name = MA;
-			path = /ARM/iOS/Mentaid/MA;
-			sourceTree = "<absolute>";
-		};
-		5236E166187EA7AA0057E974 /* Scanner */ = {
-			isa = PBXGroup;
-			children = (
-				DA1123851F3294B00031FEA9 /* ScannerViewController.swift */,
-				30A114551CD2367C000F0F02 /* ScannedPeripheral.swift */,
-				30A114591CD2426B000F0F02 /* ScannerDelegate.swift */,
-			);
-			name = Scanner;
-			path = /ARM/iOS/Mentaid/Scanner;
-			sourceTree = "<absolute>";
-		};
-		A85667DD1B222AA7004A6D3C /* AppImages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AppImages;
+			path = ../Mentaid/MA;
 			sourceTree = "<group>";
 		};
 		A85667E31B2233A3004A6D3C /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
-				30921FD21CD0E7A5009CBDDE /* NavigationController.swift */,
-				30921FD41CD0EB55009CBDDE /* MainViewController.swift */,
+				DA44845C1F33F5CE00BDFD1A /* MainViewController.swift */,
+				DA44845D1F33F5CE00BDFD1A /* NavigationController.swift */,
 			);
 			name = MainViewController;
-			path = /ARM/iOS/Mentaid/MainViewController;
-			sourceTree = "<absolute>";
+			path = ../Mentaid/MainViewController;
+			sourceTree = "<group>";
 		};
-		A8F1142619C1B7EC007F956E /* StoryBoard */ = {
+		DA44847E1F33F7A500BDFD1A /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				5217F3F71859EE0000F2D5BB /* Main.storyboard */,
-				52BDCBC51C47C2C300E2680F /* Launch Screen.storyboard */,
+				DA44847F1F33F7A500BDFD1A /* Launch Screen.storyboard */,
+				DA4484811F33F7A500BDFD1A /* Main.storyboard */,
 			);
-			name = StoryBoard;
-			path = /ARM/iOS/Mentaid;
-			sourceTree = "<absolute>";
+			name = Base.lproj;
+			path = ../Mentaid/Base.lproj;
+			sourceTree = "<group>";
+		};
+		DA44848A1F33F83000BDFD1A /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				DA44848B1F33F83000BDFD1A /* ScannedPeripheral.swift */,
+				DA44848C1F33F83000BDFD1A /* ScannerDelegate.swift */,
+				DA44848D1F33F83000BDFD1A /* ScannerViewController.swift */,
+			);
+			name = Scanner;
+			path = Mentaid/Scanner;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -273,7 +262,7 @@
 			dependencies = (
 			);
 			name = MENTAID;
-			productName = Toolbox;
+			productName = Mentaid;
 			productReference = 5217F3E21859EE0000F2D5BB /* MENTAID.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -284,7 +273,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = "Nordic Semiconductor";
+				ORGANIZATIONNAME = "Stanford University";
 				TargetAttributes = {
 					5217F3E11859EE0000F2D5BB = {
 						DevelopmentTeam = U7SF2AL48J;
@@ -301,7 +290,7 @@
 				};
 			};
 			buildConfigurationList = 5217F3DD1859EE0000F2D5BB /* Build configuration list for PBXProject "MENTAID" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -323,12 +312,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5214D0CE1886C02A00460637 /* Settings.bundle in Resources */,
-				5217F3FE1859EE0000F2D5BB /* Images.xcassets in Resources */,
-				52BDCBC61C47C2C300E2680F /* Launch Screen.storyboard in Resources */,
-				DA1123841F3163E70031FEA9 /* MENTAID-Info.plist in Resources */,
-				5217F3F01859EE0000F2D5BB /* InfoPlist.strings in Resources */,
-				5217F3F91859EE0000F2D5BB /* Main.storyboard in Resources */,
+				DA4484771F33F65200BDFD1A /* Images.xcassets in Resources */,
+				DA4484841F33F7A500BDFD1A /* Main.storyboard in Resources */,
+				DA4484831F33F7A500BDFD1A /* Launch Screen.storyboard in Resources */,
+				DA4484791F33F66B00BDFD1A /* MENTAID-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,9 +328,20 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MENTAID/Pods-MENTAID-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CorePlot/CorePlot.framework",
+				"${BUILT_PRODUCTS_DIR}/EVReflection/EVReflection.framework",
+				"${BUILT_PRODUCTS_DIR}/SWRevealViewController/SWRevealViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
+				"${BUILT_PRODUCTS_DIR}/iOSDFULibrary/iOSDFULibrary.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CorePlot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVReflection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWRevealViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOSDFULibrary.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -371,13 +369,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MENTAID-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -387,21 +388,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30F92D4B1CD9CF0700C73285 /* MAViewController.swift in Sources */,
-				300143291CEC59F4008379DF /* ServiceIdentifiers.swift in Sources */,
-				3042993C1CE6154100E1D2AB /* BaseRevealViewController.swift in Sources */,
-				3001432D1CECADFB008379DF /* CharacteristicReader.swift in Sources */,
-				52D9BC9E1DD0CB760030E824 /* Data.swift in Sources */,
+				DA44845F1F33F5CE00BDFD1A /* NavigationController.swift in Sources */,
+				DA44846D1F33F62500BDFD1A /* CharacteristicReader.swift in Sources */,
 				DA4484501F32A2C400BDFD1A /* DataModel.swift in Sources */,
-				306ECD621CE61A3600E48BBD /* AppDelegate.swift in Sources */,
-				30A1145A1CD2426B000F0F02 /* ScannerDelegate.swift in Sources */,
-				30921FD31CD0E7A5009CBDDE /* NavigationController.swift in Sources */,
-				3042993D1CE6154100E1D2AB /* BaseViewController.swift in Sources */,
-				30A114561CD2367C000F0F02 /* ScannedPeripheral.swift in Sources */,
-				DA1123861F3294B00031FEA9 /* ScannerViewController.swift in Sources */,
-				30921FD51CD0EB55009CBDDE /* MainViewController.swift in Sources */,
+				DA44846C1F33F62500BDFD1A /* AppUtilities.swift in Sources */,
+				DA4484731F33F63100BDFD1A /* BaseViewController.swift in Sources */,
+				DA44848F1F33F83000BDFD1A /* ScannerDelegate.swift in Sources */,
+				DA44846F1F33F62500BDFD1A /* ServiceIdentifiers.swift in Sources */,
+				DA4484751F33F63B00BDFD1A /* AppDelegate.swift in Sources */,
+				DA44845E1F33F5CE00BDFD1A /* MainViewController.swift in Sources */,
+				DA44846E1F33F62500BDFD1A /* Data.swift in Sources */,
+				DA44848E1F33F83000BDFD1A /* ScannedPeripheral.swift in Sources */,
 				DA44844F1F32A2C400BDFD1A /* DebugViewController.swift in Sources */,
-				300143271CEC4B9D008379DF /* AppUtilities.swift in Sources */,
+				DA4484721F33F63100BDFD1A /* BaseRevealViewController.swift in Sources */,
+				DA4484671F33F60F00BDFD1A /* MAViewController.swift in Sources */,
+				DA4484901F33F83000BDFD1A /* ScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,12 +417,28 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		5217F3F71859EE0000F2D5BB /* Main.storyboard */ = {
+		DA44847F1F33F7A500BDFD1A /* Launch Screen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				5217F3F81859EE0000F2D5BB /* Base */,
+				DA4484801F33F7A500BDFD1A /* Base */,
+			);
+			name = "Launch Screen.storyboard";
+			sourceTree = "<group>";
+		};
+		DA4484811F33F7A500BDFD1A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA4484821F33F7A500BDFD1A /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DA4484981F3404A400BDFD1A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA4484991F3404A400BDFD1A /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -457,6 +474,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Mentaid/MENTAID-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -469,6 +488,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -505,6 +525,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Mentaid/MENTAID-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -512,6 +534,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -526,7 +549,7 @@
 			baseConfigurationReference = 22F2F9E869C4C07D977ABB8D /* Pods-MENTAID.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ALWAYS_SEARCH_USER_PATHS = "$(inherited)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -539,7 +562,7 @@
 					"$(PODS_ROOT)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Toolbox/MENTAID-Prefix.pch";
+				GCC_PREFIX_HEADER = "Mentaid/MENTAID-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Settings.bundle/Root.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -577,7 +600,7 @@
 			baseConfigurationReference = 845945495D322A181A7C8736 /* Pods-MENTAID.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ALWAYS_SEARCH_USER_PATHS = "$(inherited)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -590,7 +613,7 @@
 					"$(PODS_ROOT)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Toolbox/MENTAID-Prefix.pch";
+				GCC_PREFIX_HEADER = "Mentaid/MENTAID-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Settings.bundle/Root.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
