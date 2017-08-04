@@ -1,5 +1,5 @@
 # wearable_iOS
-This is an iOS app for communicating with an nRF52-based wearable. The app assumes you are using your own custom BLE service. In general, you will have to have to modify some of the code realted to the BLE services to get it to work with your wearable. 
+This is an iOS app for communicating with an nRF52-based wearable. The app assumes you are using your own custom BLE service. In general, you will have to modify some of the code realted to the BLE services to get it to work with your particular wearable. 
 
 The code started out as a simple modification of Nordic's excellent nRF toolbox (https://github.com/NordicSemiconductor/IOS-nRF-Toolbox). 
 
