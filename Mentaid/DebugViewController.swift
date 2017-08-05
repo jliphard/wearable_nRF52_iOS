@@ -107,16 +107,16 @@ let mySpecialNotificationKey = "com.Mentaid.specialNotificationKey"
 
 class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDelegate {
     
-    var ValuesCH1 : NSMutableArray?
-    var ValuesCH2 : NSMutableArray?
-    var ValuesCH3 : NSMutableArray?
-    var ValuesCH4 : NSMutableArray?
-    var ValuesCH5 : NSMutableArray?
-    var ValuesCH6 : NSMutableArray?
-    var ValuesCH7 : NSMutableArray?
-    var ValuesCH8 : NSMutableArray?
-    var ValuesCH9 : NSMutableArray?
-
+    var ValuesCH1  : NSMutableArray?
+    var ValuesCH2  : NSMutableArray?
+    var ValuesCH3  : NSMutableArray?
+    var ValuesCH4  : NSMutableArray?
+    var ValuesCH5  : NSMutableArray?
+    var ValuesCH6  : NSMutableArray?
+    var ValuesCH7  : NSMutableArray?
+    var ValuesCH8  : NSMutableArray?
+    var ValuesCH9  : NSMutableArray?
+    
     var xValues : NSMutableArray?
     
     var plotXMaxRange : Int?
@@ -140,15 +140,17 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
     
     @IBOutlet weak var battery: UIButton!
 
-    @IBOutlet weak var S1C1: UILabel!
-    @IBOutlet weak var S1C2: UILabel!
-    @IBOutlet weak var S1C3: UILabel!
-    @IBOutlet weak var S1C4: UILabel!
-    @IBOutlet weak var S1C5: UILabel!
-    @IBOutlet weak var S1C6: UILabel!
-    @IBOutlet weak var S1C7: UILabel!
-    @IBOutlet weak var S1C8: UILabel!
-    @IBOutlet weak var S1C9: UILabel!
+    @IBOutlet weak var S1C1:  UILabel!
+    @IBOutlet weak var S1C2:  UILabel!
+    @IBOutlet weak var S1C3:  UILabel!
+    @IBOutlet weak var S1C4:  UILabel!
+    @IBOutlet weak var S1C5:  UILabel!
+    @IBOutlet weak var S1C6:  UILabel!
+    @IBOutlet weak var S1C7:  UILabel!
+    @IBOutlet weak var S1C8:  UILabel!
+    @IBOutlet weak var S1C9:  UILabel!
+    @IBOutlet weak var S1C10: UILabel!
+
     
     @IBOutlet weak var graphView: CPTGraphHostingView!
 
@@ -367,6 +369,7 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         S1C7.text = "-";
         S1C8.text = "-";
         S1C9.text = "-";
+        S1C10.text = "-";
         
         // Clear and reset the graph
         xValues?.removeAllObjects()
@@ -482,10 +485,10 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
     func actOnSpecialNotification() {
         
         //add the data to record
-        ValuesCH1?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.ticks) as Int))
+        ValuesCH1?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.ticks % 100) as Int))
         ValuesCH2?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.battery) as Int))
         
-        ValuesCH3?.add(NSDecimalNumber(value: DataModel.sharedInstance.pressure as Double))
+        ValuesCH3?.add(NSDecimalNumber(value: (DataModel.sharedInstance.pressure) - 980.0 as Double))
         ValuesCH4?.add(NSDecimalNumber(value: DataModel.sharedInstance.temperature as Double))
         ValuesCH5?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.humidity) as Int))
         
@@ -508,6 +511,9 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         self.S1C7.text = String(format:"%.1f", DataModel.sharedInstance.accelX)
         self.S1C8.text = String(format:"%.1f", DataModel.sharedInstance.accelY)
         self.S1C9.text = String(format:"%.1f", DataModel.sharedInstance.accelZ)
+        
+        self.S1C10.text = "\(Int(DataModel.sharedInstance.storage))"
+
 
         // Also, we save the time when the data was received
         // 'Last' and 'previous' values are timestamps of those values. 

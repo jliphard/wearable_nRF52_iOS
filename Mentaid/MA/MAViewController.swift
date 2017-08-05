@@ -87,10 +87,15 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     @IBOutlet weak var battery: UIButton!
     @IBOutlet weak var deviceName: UILabel!
     @IBOutlet weak var connectionButton: UIButton!
+    @IBOutlet weak var uploadButton: UIButton!
     
     //Save to FLASH
     @IBOutlet var SaveToFLASH_Switch: UISwitch!
     @IBOutlet var SaveToFLASH_Switch_State: UILabel!
+    
+    //Stream via BLE
+    @IBOutlet var LiveStream_Switch: UISwitch!
+    @IBOutlet var LiveStream_Switch_State: UILabel!
     
     //Sampling On/Off
     @IBOutlet var Sampling_Switch: UISwitch!
@@ -101,26 +106,6 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         if peripheral != nil
         {
             bluetoothManager?.cancelPeripheralConnection(peripheral!)
-        }
-    }
-    
-    @IBAction func replayButtonTapped(_ sender: AnyObject) {
-        
-        if peripheral != nil
-        {
-            var parameter = NSInteger(11);
-            let data = NSData(bytes: &parameter, length: 1)
-            for aService : CBService in (peripheral?.services!)! {
-                if aService.uuid.isEqual(maServiceUUID) {
-                    for aCharacteristic : CBCharacteristic in aService.characteristics! {
-                        if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID) {
-                            print("Sent number to MENTAID")
-                            //peripheral?.readValue(for: aCharacteristic)
-                            peripheral?.writeValue(data as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
-                        }
-                    }
-                }
-            }
         }
     }
     
@@ -139,6 +124,34 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         isBluetoothOn           = false
         isDeviceConnected       = false
         peripheral              = nil
+    }
+    
+    @IBAction func Sampling_SwitchChanged(Sampling_Switch: UISwitch) {
+        
+        var parameter = NSInteger(0);
+        
+        if Sampling_Switch.isOn {
+            Sampling_Switch_State.text = "ON"
+            parameter = NSInteger(13);
+        } else {
+            Sampling_Switch_State.text = "OFF"
+            parameter = NSInteger(12);
+        }
+        
+        let command = NSData(bytes: &parameter, length: 1)
+        
+        if peripheral != nil {
+            for aService : CBService in (peripheral?.services!)! {
+                if aService.uuid.isEqual(maServiceUUID) {
+                    for aCharacteristic : CBCharacteristic in aService.characteristics! {
+                        if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID) {
+                            print("Sent Sampling command to MENTAID")
+                            peripheral?.writeValue(command as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func FLASH_SwitchChanged(SaveToFLASH_Switch: UISwitch) {
@@ -168,17 +181,18 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             }
         }
     }
+
     
-    @IBAction func Sampling_SwitchChanged(Sampling_Switch: UISwitch) {
+    @IBAction func LiveStream_SwitchChanged(LiveStream_Switch: UISwitch) {
         
         var parameter = NSInteger(0);
         
-        if Sampling_Switch.isOn {
-            Sampling_Switch_State.text = "ON"
-            parameter = NSInteger(13);
+        if LiveStream_Switch.isOn {
+            LiveStream_Switch_State.text = "ON"
+            parameter = NSInteger(35);
         } else {
-            Sampling_Switch_State.text = "OFF"
-            parameter = NSInteger(12);
+            LiveStream_Switch_State.text = "OFF"
+            parameter = NSInteger(34);
         }
         
         let command = NSData(bytes: &parameter, length: 1)
@@ -188,8 +202,29 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
                 if aService.uuid.isEqual(maServiceUUID) {
                     for aCharacteristic : CBCharacteristic in aService.characteristics! {
                         if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID) {
-                            print("Sent Sampling command to MENTAID")
+                            print("Sent LiveStream command to MENTAID")
                             peripheral?.writeValue(command as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @IBAction func UploadButtonTapped(_ sender: AnyObject) {
+        
+        if peripheral != nil
+        {
+            var parameter = NSInteger(42);
+            
+            let data = NSData(bytes: &parameter, length: 1)
+            for aService : CBService in (peripheral?.services!)! {
+                if aService.uuid.isEqual(maServiceUUID) {
+                    for aCharacteristic : CBCharacteristic in aService.characteristics! {
+                        if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID) {
+                            print("Sent Upload command to MENTAID")
+                            //peripheral?.readValue(for: aCharacteristic)
+                            peripheral?.writeValue(data as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
                         }
                     }
                 }
@@ -249,6 +284,7 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             self.connectionButton.setTitle("DISCONNECT", for: UIControlState())
             self.SaveToFLASH_Switch.isEnabled = true
             self.Sampling_Switch.isEnabled = true
+            self.LiveStream_Switch.isEnabled = true
         }
         
         if UIApplication.instancesRespond(to: #selector(UIApplication.registerUserNotificationSettings(_:))){
@@ -279,6 +315,7 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             
             self.SaveToFLASH_Switch.isEnabled = false
             self.Sampling_Switch.isEnabled = false
+            self.LiveStream_Switch.isEnabled = false
             
             self.connectionButton.setTitle("CONNECT", for: UIControlState())
             self.peripheral = nil;
@@ -450,20 +487,24 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         
         (data as NSData).getBytes(&array, length:count * MemoryLayout<UInt8>.size)
         
-        if ((array[0] & 0x01) == 0)
-        {
+        //if ((array[0] & 0x01) == 0)
+        //{
             //this bitpacking flag no longer used
-        }
-        else
-        {
+        //}
+        //else
+        //{
+            //array zero has flag data in it....
+            
             var uInt16Value: UInt16 = 0
             var Int16Value:   Int16 = 0
             
             DataModel.sharedInstance.setTicks(x: UInt16(array[2]) << 8 | UInt16(array[1]))
             
+            //print("Time: %d", UInt16(array[2]) << 8 | UInt16(array[1]));
+            
             DataModel.sharedInstance.setBattery2(x: array[3]) //battery from 0 to about 110
             
-            DataModel.sharedInstance.setPressure(x: ((Double(array[4]) + 10000.0 ) / 10.0) - 980.0)
+            DataModel.sharedInstance.setPressure(x: ((Double(array[4]) + 10000.0 ) / 10.0))
             
             DataModel.sharedInstance.setTemperature(x: ((Double(array[5]) +   200.0 ) / 10.0));
             
@@ -486,8 +527,11 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             //Az
             Int16Value = Int16(array[14]) << 8 | Int16(array[13])
             DataModel.sharedInstance.setAccelZ(x: (Double(Int16Value) / 40.0) + 50.0 );
+            
+            //Storage
+            DataModel.sharedInstance.setStorage(x: UInt16(array[16]) << 8 | UInt16(array[15]) );
 
-        }
+        //}
         
     }
     

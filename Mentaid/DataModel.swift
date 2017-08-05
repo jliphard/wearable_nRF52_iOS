@@ -45,6 +45,7 @@ class DataModel {
     private (set) var accelX:       Double = 0.0
     private (set) var accelY:       Double = 0
     private (set) var accelZ:       Double = 0
+    private (set) var storage:      UInt16 = 0
     
     func setTicks(          x: UInt16 ) { self.ticks          = x }
     func setBattery(        x: UInt8  ) { self.battery        = x }
@@ -56,5 +57,7 @@ class DataModel {
     func setAccelX(         x: Double ) { self.accelX         = x }
     func setAccelY(         x: Double ) { self.accelY         = x }
     func setAccelZ(         x: Double ) { self.accelZ         = x }
+    func setStorage(        x: UInt16 ) { self.storage        = x }
+
     
 }
