@@ -7,4 +7,4 @@ The major differences are that (1) the data are now contained within a separate 
 
 It should be straightforward to reuse/modify this code for many different wearables. In case you are curious, our hardware contains several sensors, a Nordic nRF52 MCU, and some SPI NOR-FLASH for data logging. The major next step will be add data uploading to pubnub and to encrypt the bluetooth. 
 
-The code is under very active development, so expect thimngs to change rapidly without notice. 
+The code is under very active development, so expect things to change rapidly without notice. 
