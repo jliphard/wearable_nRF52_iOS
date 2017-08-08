@@ -151,6 +151,7 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
     @IBOutlet weak var S1C9:  UILabel!
     @IBOutlet weak var S1C10: UILabel!
 
+    var timerTick : Int?
     
     @IBOutlet weak var graphView: CPTGraphHostingView!
 
@@ -158,10 +159,11 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
     {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(DebugViewController.actOnSpecialNotification), name: NSNotification.Name(rawValue: mySpecialNotificationKey), object: nil)
-     
+        NotificationCenter.default.addObserver(self, selector: #selector(DebugViewController.actOnSpecialNotification),
+                                               name: NSNotification.Name(rawValue: mySpecialNotificationKey), object: nil)
+        timerTick = 0
+        
         xValues   = NSMutableArray()
-     
         ValuesCH1 = NSMutableArray()
         ValuesCH2 = NSMutableArray()
         ValuesCH3 = NSMutableArray()
@@ -187,7 +189,6 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         //set graph backgound area transparent
         graph?.fill = CPTFill(color: CPTColor.clear())
         graph?.plotAreaFrame?.fill = CPTFill(color: CPTColor.clear())
-        //graph?.plotAreaFrame?.fill = CPTFill(color: CPTColor.clear())
         
         //This removes top and right lines of graph
         graph?.plotAreaFrame?.borderLineStyle = CPTLineStyle(style: nil)
@@ -206,6 +207,7 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         let plotSpace = graph?.defaultPlotSpace
         plotSpace?.allowsUserInteraction = true
         plotSpace?.delegate = self;
+        
         self.resetPlotRange()
         
         let axisSet = graph?.axisSet as! CPTXYAxisSet;
@@ -350,6 +352,8 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         plotXInterval = 20
         plotYInterval = 50
         
+        timerTick     = 0
+        
         let plotSpace = graph?.defaultPlotSpace as! CPTXYPlotSpace
         
         plotSpace.xRange = CPTPlotRange(location: NSNumber(value: plotXMinRange!), length: NSNumber(value: plotXMaxRange!))
@@ -386,13 +390,18 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         
         resetPlotRange()
         graph?.reloadData()
+        
+        timerTick = 0
 
     }
     
     //high quality timestamps for plotting.
-    static func longUnixEpoch() -> NSDecimalNumber
+    func longUnixEpoch() -> NSDecimalNumber
     {
-        return NSDecimalNumber(value: Date().timeIntervalSince1970 as Double)
+        timerTick! = timerTick! + 1
+        //print("Tick: \(String(describing: timerTick))")
+        return NSDecimalNumber(value: Double(timerTick!) as Double)
+        //return NSDecimalNumber(value: Date().timeIntervalSince1970 as Double)
     }
     
     //MARK: - CPTPlotDataSource
@@ -484,8 +493,27 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
 
     func actOnSpecialNotification() {
         
+        //upload into the cloud
+        
+        //need 
+        
+        log.info([DataModel.sharedInstance.ticks,
+                  DataModel.sharedInstance.battery,
+                  DataModel.sharedInstance.pressure,
+                  Int(DataModel.sharedInstance.temperature*100.0),
+                  DataModel.sharedInstance.humidity,
+                  DataModel.sharedInstance.lightIntensity,
+                  Int(DataModel.sharedInstance.accelX),
+                  Int(DataModel.sharedInstance.accelY),
+                  Int(DataModel.sharedInstance.accelZ),
+                  DataModel.sharedInstance.storage]
+        )   // prio 3, INFO in green
+        
         //add the data to record
         ValuesCH1?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.ticks % 100) as Int))
+        
+        //print("Tick: \(Int(DataModel.sharedInstance.ticks))")
+        
         ValuesCH2?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.battery) as Int))
         
         ValuesCH3?.add(NSDecimalNumber(value: (DataModel.sharedInstance.pressure) - 980.0 as Double))
@@ -514,15 +542,15 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         
         self.S1C10.text = "\(Int(DataModel.sharedInstance.storage))"
 
-
         // Also, we save the time when the data was received
         // 'Last' and 'previous' values are timestamps of those values. 
         // We calculate them to know whether we should automatically scroll the graph
         var lastValue : NSDecimalNumber
         var firstValue : NSDecimalNumber
         
-        if (xValues?.count)! > 0 {
-            lastValue  = xValues?.lastObject as! NSDecimalNumber
+        if (xValues?.count)! > 0
+        {
+            lastValue  = xValues?.lastObject  as! NSDecimalNumber
             firstValue = xValues?.firstObject as! NSDecimalNumber
         } else {
             lastValue  = 0
@@ -530,10 +558,13 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         }
         
         let previous : Double = lastValue.subtracting(firstValue).doubleValue
-        xValues?.add(DebugViewController.longUnixEpoch())
         
-        lastValue  = xValues?.lastObject as! NSDecimalNumber
+        //this is the unix time, which is fine when we are livestreaming, but not so good when replaying data.
+        xValues?.add( self.longUnixEpoch() )
+        
+        lastValue  = xValues?.lastObject  as! NSDecimalNumber
         firstValue = xValues?.firstObject as! NSDecimalNumber
+        
         let last : Double = lastValue.subtracting(firstValue).doubleValue
         
         // Here we calculate the max value visible on the graph
@@ -554,8 +585,7 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         let batteryLevel = DataModel.sharedInstance.battery
         let text = "\(batteryLevel)%"
         self.battery.setTitle(text, for: UIControlState.disabled)
-
-
+        
         }
 
 }
