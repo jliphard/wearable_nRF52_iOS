@@ -1,3 +1,4 @@
+
 import UIKit
 import SwiftyBeaver
 let log = SwiftyBeaver.self
@@ -12,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //let console = ConsoleDestination()  // log to Xcode Console
         let file    = FileDestination()       // log to default swiftybeaver.log file - where is this file??????
-        let cloud   = SBPlatformDestination(appID: "YourAppID", appSecret: "YourAppSecret", encryptionKey: "Your32CharKey")
+        let cloud   = SBPlatformDestination(appID: Keys.appID, appSecret: Keys.appSecret, encryptionKey: Keys.encryptionKey)
 
         cloud.analyticsUserName = "Tester1"
         cloud.showNSLog         = false
