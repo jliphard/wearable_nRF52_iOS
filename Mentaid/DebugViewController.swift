@@ -107,6 +107,7 @@ let mySpecialNotificationKey = "com.Mentaid.specialNotificationKey"
 
 class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDelegate {
     
+    var xValues : NSMutableArray?
     var ValuesCH1  : NSMutableArray?
     var ValuesCH2  : NSMutableArray?
     var ValuesCH3  : NSMutableArray?
@@ -116,13 +117,7 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
     var ValuesCH7  : NSMutableArray?
     var ValuesCH8  : NSMutableArray?
     var ValuesCH9  : NSMutableArray?
-    
-    var xValues : NSMutableArray?
-    
-    var plotXMaxRange : Int?
-    var plotXMinRange : Int?
-    var plotYMaxRange : Int?
-    var plotYMinRange : Int?
+
     var plotXInterval : Int?
     var plotYInterval : Int?
     
@@ -152,6 +147,7 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
     @IBOutlet weak var S1C10: UILabel!
 
     var timerTick : Int?
+    var pointsInMemory : Int?
     
     @IBOutlet weak var graphView: CPTGraphHostingView!
 
@@ -162,6 +158,7 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         NotificationCenter.default.addObserver(self, selector: #selector(DebugViewController.actOnSpecialNotification),
                                                name: NSNotification.Name(rawValue: mySpecialNotificationKey), object: nil)
         timerTick = 0
+        pointsInMemory = 0;
         
         xValues   = NSMutableArray()
         ValuesCH1 = NSMutableArray()
@@ -202,13 +199,18 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         graph?.paddingTop       = 0;
         
         //Define x and y axis range
-        // x-axis from 0 to 100
-        // y-axis from 0 to 300
         let plotSpace = graph?.defaultPlotSpace
         plotSpace?.allowsUserInteraction = true
         plotSpace?.delegate = self;
         
-        self.resetPlotRange()
+        let plotSpace2 = graph?.defaultPlotSpace as! CPTXYPlotSpace
+        
+        plotSpace2.yRange = CPTPlotRange(location: NSNumber(value: 0), length: NSNumber(value: 105))
+        plotSpace2.xRange = CPTPlotRange(location: NSNumber(value: 0), length: NSNumber(value: 100))
+        
+        plotXInterval =  20
+        plotYInterval =  50
+        timerTick     =   0
         
         let axisSet = graph?.axisSet as! CPTXYAxisSet;
         
@@ -255,15 +257,11 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         linePlot9?.dataSource = self
         
         linePlot1?.identifier = NSString.init(string: "PlotTime")
-        
         linePlot2?.identifier = NSString.init(string: "PlotBattery")
-        
         linePlot3?.identifier = NSString.init(string: "PlotPressure")
         linePlot4?.identifier = NSString.init(string: "PlotTemperature")
         linePlot5?.identifier = NSString.init(string: "PlotHumidity")
-        
         linePlot6?.identifier = NSString.init(string: "PlotIntensity")
-        
         linePlot7?.identifier = NSString.init(string: "PlotAx")
         linePlot8?.identifier = NSString.init(string: "PlotAy")
         linePlot9?.identifier = NSString.init(string: "PlotAz")
@@ -340,24 +338,7 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         xAxis?.majorGridLineStyle = gridLineStyle
         yAxis?.majorGridLineStyle = gridLineStyle
         
-    }
-    
-    func resetPlotRange()
-    {
-        
-        plotXMaxRange = 121
-        plotXMinRange = -1
-        plotYMaxRange = 310
-        plotYMinRange = -1
-        plotXInterval = 20
-        plotYInterval = 50
-        
-        timerTick     = 0
-        
-        let plotSpace = graph?.defaultPlotSpace as! CPTXYPlotSpace
-        
-        plotSpace.xRange = CPTPlotRange(location: NSNumber(value: plotXMinRange!), length: NSNumber(value: plotXMaxRange!))
-        plotSpace.yRange = CPTPlotRange(location: NSNumber(value: plotYMinRange!), length: NSNumber(value: plotYMaxRange!))
+
     }
     
     func clearUI()
@@ -388,7 +369,6 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         ValuesCH8?.removeAllObjects()
         ValuesCH9?.removeAllObjects()
         
-        resetPlotRange()
         graph?.reloadData()
         
         timerTick = 0
@@ -416,54 +396,43 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         let plotField = CPTScatterPlotField(rawValue: fieldVal)
         let plotID    = plot.identifier as! String
         
-        if (plotField! == .Y) && (plotID == "PlotTime")
-        {
+        if (plotField! == .Y) && (plotID == "PlotTime") {
             return ValuesCH1?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .Y) && (plotID == "PlotBattery")
-        {
+        else if (plotField! == .Y) && (plotID == "PlotBattery") {
             return ValuesCH2?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .Y) && (plotID == "PlotPressure")
-        {
+        else if (plotField! == .Y) && (plotID == "PlotPressure") {
             return ValuesCH3?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .Y) && (plotID == "PlotTemperature")
-        {
+        else if (plotField! == .Y) && (plotID == "PlotTemperature") {
             return ValuesCH4?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .Y) && (plotID == "PlotHumidity")
-        {
+        else if (plotField! == .Y) && (plotID == "PlotHumidity") {
             return ValuesCH5?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .Y) && (plotID == "PlotIntensity")
-        {
+        else if (plotField! == .Y) && (plotID == "PlotIntensity") {
             return ValuesCH6?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .Y) && (plotID == "PlotAx")
-        {
+        else if (plotField! == .Y) && (plotID == "PlotAx") {
             return ValuesCH7?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .Y) && (plotID == "PlotAy")
-        {
+        else if (plotField! == .Y) && (plotID == "PlotAy") {
             return ValuesCH8?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .Y) && (plotID == "PlotAz")
-        {
+        else if (plotField! == .Y) && (plotID == "PlotAz") {
             return ValuesCH9?.object(at: Int(idx)) as AnyObject?
         }
-        else if (plotField! == .X)
-        {
+        else if (plotField! == .X) {
             // The xValues stores timestamps. To show them starting from 0 we have to subtract the first one.
             return (xValues?.object(at: Int(idx)) as! NSDecimalNumber).subtracting(xValues?.firstObject as! NSDecimalNumber)
         }
-        else
-        {
+        else {
             return nil
         }
         
     }
-    
+
     func plotSpace(_ space: CPTPlotSpace, shouldScaleBy interactionScale: CGFloat, aboutPoint interactionPoint: CGPoint) -> Bool {
         return false
     }
@@ -471,8 +440,9 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
     func plotSpace(_ space: CPTPlotSpace, willDisplaceBy proposedDisplacementVector: CGPoint) -> CGPoint {
         return CGPoint(x: proposedDisplacementVector.x, y: 0)
     }
-    
+
     func plotSpace(_ space: CPTPlotSpace, willChangePlotRangeTo newRange: CPTPlotRange, for coordinate: CPTCoordinate) -> CPTPlotRange? {
+        
         // The Y range does not change here
         if coordinate == CPTCoordinate.Y {
             return newRange;
@@ -480,23 +450,14 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         
         // Adjust axis on scrolling
         let axisSet = space.graph?.axisSet as! CPTXYAxisSet
-        
-        if newRange.location.intValue >= plotXMinRange! {
-            // Adjust axis to keep them in view at the left and bottom;
-            // adjust scale-labels to match the scroll.
-            axisSet.yAxis!.orthogonalPosition = NSNumber(value: newRange.locationDouble - Double(plotXMinRange!))
-            return newRange
-        }
         axisSet.yAxis!.orthogonalPosition = 0
-        return CPTPlotRange(location: NSNumber(value: plotXMinRange!), length: NSNumber(value: plotXMaxRange!))
+        return CPTPlotRange(location: NSNumber(value: 0), length: NSNumber(value: 100))
     }
 
     func actOnSpecialNotification() {
         
         //upload into the cloud
-        
-        //need 
-        
+        //control code?
         log.info([DataModel.sharedInstance.ticks,
                   DataModel.sharedInstance.battery,
                   DataModel.sharedInstance.pressure,
@@ -542,43 +503,27 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         
         self.S1C10.text = "\(Int(DataModel.sharedInstance.storage))"
 
-        // Also, we save the time when the data was received
-        // 'Last' and 'previous' values are timestamps of those values. 
-        // We calculate them to know whether we should automatically scroll the graph
-        var lastValue : NSDecimalNumber
-        var firstValue : NSDecimalNumber
-        
-        if (xValues?.count)! > 0
-        {
-            lastValue  = xValues?.lastObject  as! NSDecimalNumber
-            firstValue = xValues?.firstObject as! NSDecimalNumber
-        } else {
-            lastValue  = 0
-            firstValue = 0
-        }
-        
-        let previous : Double = lastValue.subtracting(firstValue).doubleValue
-        
         //this is the unix time, which is fine when we are livestreaming, but not so good when replaying data.
         xValues?.add( self.longUnixEpoch() )
         
-        lastValue  = xValues?.lastObject  as! NSDecimalNumber
-        firstValue = xValues?.firstObject as! NSDecimalNumber
+        pointsInMemory = pointsInMemory! + 1;
         
-        let last : Double = lastValue.subtracting(firstValue).doubleValue
-        
-        // Here we calculate the max value visible on the graph
-        let plotSpace = graph!.defaultPlotSpace as! CPTXYPlotSpace
-        
-        let max = plotSpace.xRange.locationDouble + plotSpace.xRange.lengthDouble
-        
-        if last > max && previous <= max {
-            let location = Int(last) - plotXMaxRange! + 1
-            plotSpace.xRange = CPTPlotRange(location: NSNumber(value: (location)), length: NSNumber(value: plotXMaxRange!))
+        //Fill up the array, but then start to delete old values
+        //To fill the gap, all elements beyond index are moved by subtracting 1 from their index.
+        if ( pointsInMemory! > 100 )
+        {
+            ValuesCH1?.removeObject(at: 0);
+            ValuesCH2?.removeObject(at: 0);
+            ValuesCH3?.removeObject(at: 0);
+            ValuesCH4?.removeObject(at: 0);
+            ValuesCH5?.removeObject(at: 0);
+            ValuesCH6?.removeObject(at: 0);
+            ValuesCH7?.removeObject(at: 0);
+            ValuesCH8?.removeObject(at: 0);
+            ValuesCH9?.removeObject(at: 0);
+            xValues?.removeObject(at: 0);
         }
-        
-        plotSpace.yRange = CPTPlotRange(location: NSNumber(value: 0), length: NSNumber(value: 105))
-        
+
         graph?.reloadData()
 
         //update the battery icon

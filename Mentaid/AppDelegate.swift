@@ -10,11 +10,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        // add log destinations. at least one is needed!
-        
         //let console = ConsoleDestination()  // log to Xcode Console
-        let file    = FileDestination()     // log to default swiftybeaver.log file
-        
+        let file    = FileDestination()       // log to default swiftybeaver.log file - where is this file??????
         let cloud   = SBPlatformDestination(appID: "YourAppID", appSecret: "YourAppSecret", encryptionKey: "Your32CharKey")
 
         
@@ -25,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.addDestination(file)
         log.addDestination(cloud)
         
-        log.info("First log")   // prio 3, INFO in green
+        log.info("Log 1")   // prio 3, INFO in green
         
  /*
  // log with different importance
