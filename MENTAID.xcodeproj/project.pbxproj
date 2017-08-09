@@ -34,6 +34,7 @@
 		DA44848E1F33F83000BDFD1A /* ScannedPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44848B1F33F83000BDFD1A /* ScannedPeripheral.swift */; };
 		DA44848F1F33F83000BDFD1A /* ScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44848C1F33F83000BDFD1A /* ScannerDelegate.swift */; };
 		DA4484901F33F83000BDFD1A /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44848D1F33F83000BDFD1A /* ScannerViewController.swift */; };
+		DAF107A41F3B795300816A76 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF107A31F3B795300816A76 /* Keys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +86,7 @@
 		DA44848D1F33F83000BDFD1A /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		DA4484921F33FD2E00BDFD1A /* MENTAID-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MENTAID-Prefix.pch"; path = "Mentaid/MENTAID-Prefix.pch"; sourceTree = "<group>"; };
 		DA4484991F3404A400BDFD1A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Mentaid/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DAF107A31F3B795300816A76 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 		5217F3EB1859EE0000F2D5BB /* Mentaid */ = {
 			isa = PBXGroup;
 			children = (
+				DAF107A31F3B795300816A76 /* Keys.swift */,
 				DA44848A1F33F83000BDFD1A /* Scanner */,
 				DA44847E1F33F7A500BDFD1A /* Base.lproj */,
 				DA4484761F33F65200BDFD1A /* Images.xcassets */,
@@ -390,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA44845F1F33F5CE00BDFD1A /* NavigationController.swift in Sources */,
+				DAF107A41F3B795300816A76 /* Keys.swift in Sources */,
 				DA44846D1F33F62500BDFD1A /* CharacteristicReader.swift in Sources */,
 				DA4484501F32A2C400BDFD1A /* DataModel.swift in Sources */,
 				DA44846C1F33F62500BDFD1A /* AppUtilities.swift in Sources */,
