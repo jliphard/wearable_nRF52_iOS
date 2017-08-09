@@ -1,6 +1,6 @@
 # Keys #
 ######################
-keys.swift
+Keys.swift
 
 # OS generated files #
 ######################
@@ -9,5 +9,6 @@ keys.swift
 ._*
 .Spotlight-V100
 .Trashes
+.xcuserstate
 ehthumbs.db
 Thumbs.db
