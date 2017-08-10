@@ -86,9 +86,7 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     var maDataCharacteristicUUID        : CBUUID
     var maCommandCharacteristicUUID     : CBUUID
     var maStatusCharacteristicUUID      : CBUUID
-    
-    var old_status                      : UInt8 = 0
-    
+
     var peripheral                      : CBPeripheral?
     
     @IBOutlet weak var battery: UIButton!
@@ -248,7 +246,6 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
                     for aCharacteristic : CBCharacteristic in aService.characteristics! {
                         if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID) {
                             print("Sent Replay command to MENTAID")
-                            //peripheral?.readValue(for: aCharacteristic)
                             peripheral?.writeValue(data as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
                         }
                     }
@@ -277,7 +274,8 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     
     func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral)
     {
-        // We may not use more than one Central Manager instance. Let's just take the one returned from Scanner View Controller
+        // We may not use more than one Central Manager instance. 
+        // Let's just take the one returned from Scanner View Controller
         bluetoothManager = aManager;
         bluetoothManager!.delegate = self;
         
@@ -292,7 +290,8 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     
     func centralManagerDidUpdateState(_ central: CBCentralManager)
     {
-        if central.state == .poweredOff {
+        if central.state == .poweredOff
+        {
             print("Bluetooth powered off")
         } else {
             print("Bluetooth powered on")
@@ -311,6 +310,7 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             self.FIRM_SaveToFLASH_Switch.isEnabled      = true
             self.FIRM_Sensor_Sampling_Switch.isEnabled  = true
             self.FIRM_Stream_To_Phone_Switch.isEnabled  = true
+            
             self.APP_Stream_to_Cloud_Switch.isEnabled   = true
         }
         
@@ -343,14 +343,15 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             self.FIRM_SaveToFLASH_Switch.isEnabled      = false
             self.FIRM_Sensor_Sampling_Switch.isEnabled  = false
             self.FIRM_Stream_To_Phone_Switch.isEnabled  = false
+            
             self.APP_Stream_to_Cloud_Switch.isEnabled   = false
             
-            self.old_status = 0 //so we set the radio buttons correctly the next time around
-            
             self.connectionButton.setTitle("CONNECT", for: UIControlState())
+            
             self.peripheral = nil;
             
-            if AppUtilities.isApplicationInactive() {
+            if AppUtilities.isApplicationInactive()
+            {
                 let name = peripheral.name ?? "Peripheral"
                 AppUtilities.showBackgroundNotification(message: "\(name) is disconnected.")
             }
@@ -400,18 +401,17 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             {
                 if aCharacteristic.uuid.isEqual(maDataCharacteristicUUID)
                 {
-                    print("Mentaid Data characteristic found")
+                    print("Mentaid Data Notification characteristic found")
                     peripheral.setNotifyValue(true, for: aCharacteristic)
                 }
                 else if aCharacteristic.uuid.isEqual(maStatusCharacteristicUUID)
                 {
-                    print("Mentaid Sensor Status characteristic found")
-                    peripheral.readValue(for: aCharacteristic)
+                    print("Mentaid Sensor Status Notification characteristic found")
+                    peripheral.setNotifyValue(true, for: aCharacteristic)
                 }
                 else if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID)
                 {
                     print("Mentaid Sensor Command characteristic found")
-                    peripheral.readValue(for: aCharacteristic)
                 }
             }
         }
@@ -430,6 +430,7 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     
     let mySpecialNotificationKey = "com.Mentaid.specialNotificationKey"
     
+    //this is for notifying the datamodel, when new data have been packed in
     func notify() {
         NotificationCenter.default.post(name: Notification.Name(rawValue: mySpecialNotificationKey), object: self)
     }
@@ -449,48 +450,63 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             {
                 //and now we need to move this into the data model
                 self.decodeAndShareValues(withData: characteristic.value!)
+                
                 //and now we need to notify everyone
                 self.notify() //we have new data in the datamodel
             }
-            else if characteristic.uuid.isEqual(self.maStatusCharacteristicUUID)
+            if characteristic.uuid.isEqual(self.maStatusCharacteristicUUID)
             {
-                //this is horrible way to do this, but it's late and this just needs to owrk
-                //FIX FIX FIX
-                //need real service for the status with notifications
-
-                peripheral.readValue(for: characteristic)
-
+                
                 let data = characteristic.value as NSData?
                 let array : UnsafePointer<UInt8> = (data?.bytes)!.assumingMemoryBound(to: UInt8.self)
                 let status : UInt8 = array[0]
                 
-                if ( self.old_status != status )
+                DataModel.sharedInstance.setStatus(x: status)
+                self.notify()
+                
+                print("Wearable status notifiction to: \(status)")
+                
+                //#define MA_FLAG_SAVE_TO_FLASH       (0x01 << 0)
+                //#define MA_FLAG_SAMPLE_SENSORS      (0x01 << 1)
+                //#define MA_FLAG_LIVESTREAM          (0x01 << 2)
+                
+                //bitNSet = (originalInteger & (1 << N) == 1 << N)
+                
+                //self.FIRM_SaveToFLASH_Switch.isEnabled      = true
+                //self.FIRM_Sensor_Sampling_Switch.isEnabled  = true
+                //self.FIRM_Stream_To_Phone_Switch.isEnabled  = true
+                
+                if( (status & (1 << 0) == 1 << 0) )
                 {
-                    print("Wearable status changed to: \(status)")
-                    
-                    //when we disconnect, we need to zero the
-                    self.old_status = status
-                    
-                    //#define MA_FLAG_SAVE_TO_FLASH       (0x01 << 0)
-                    //#define MA_FLAG_SAMPLE_SENSORS      (0x01 << 1)
-                    //#define MA_FLAG_LIVESTREAM          (0x01 << 2)
-                    
-                    if( (status & (1 << 0) == 1 << 0) ) {
-                        //this is really only critical when booting up
-                        self.FIRM_SaveToFLASH_Switch.setOn(true, animated: true)
-                        self.FIRM_SaveToFLASH_Switch_State.text = "ON"
-                    } else {
-                        self.FIRM_SaveToFLASH_Switch.setOn(false, animated: true)
-                        self.FIRM_SaveToFLASH_Switch_State.text = "OFF"
-                    }
-                    
-                    /*
-                    if( SaveToFLASH )   status |= MA_FLAG_SAVE_TO_FLASH;
-                    if( SampleSensors ) status |= MA_FLAG_SAMPLE_SENSORS;
-                    if( LiveStream )    status |= MA_FLAG_LIVESTREAM;
-                     */
-                    
+                    //this is really only critical when booting up
+                    self.FIRM_SaveToFLASH_Switch.setOn(true, animated: true)
+                    self.FIRM_SaveToFLASH_Switch_State.text = "ON"
+                } else {
+                    self.FIRM_SaveToFLASH_Switch.setOn(false, animated: true)
+                    self.FIRM_SaveToFLASH_Switch_State.text = "OFF"
                 }
+                
+                if( (status & (1 << 1) == 1 << 1) )
+                {
+                    //this is really only critical when booting up
+                    self.FIRM_Sensor_Sampling_Switch.setOn(true, animated: true)
+                    self.FIRM_Sensor_Sampling_Switch_State.text = "ON"
+                } else {
+                    self.FIRM_Sensor_Sampling_Switch.setOn(false, animated: true)
+                    self.FIRM_Sensor_Sampling_Switch_State.text = "OFF"
+                }
+                
+                if( (status & (1 << 2) == 1 << 2) )
+                {
+                    //this is really only critical when booting up
+                    self.FIRM_Stream_To_Phone_Switch.setOn(true, animated: true)
+                    self.FIRM_Stream_To_Phone_Switch_State.text = "ON"
+                } else {
+                    self.FIRM_Stream_To_Phone_Switch.setOn(false, animated: true)
+                    self.FIRM_Stream_To_Phone_Switch_State.text = "OFF"
+                }
+
+
             }
             else if characteristic.uuid.isEqual(self.batteryLevelCharacteristicUUID)
             {
@@ -555,77 +571,41 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         
         (data as NSData).getBytes(&array, length:count * MemoryLayout<UInt8>.size)
         
-        //if ((array[0] & 0x01) == 0)
-        //{
-            //this bitpacking flag no longer used
-        //}
-        //else
-        //{
-            //array zero has flag data in it....
+        var uInt16Value: UInt16 = 0
+        var Int16Value:   Int16 = 0
             
-            var uInt16Value: UInt16 = 0
-            var Int16Value:   Int16 = 0
-            
-            DataModel.sharedInstance.setTicks(x: UInt16(array[2]) << 8 | UInt16(array[1]))
+        DataModel.sharedInstance.setTicks(x: UInt16(array[2]) << 8 | UInt16(array[1]))
             
             //print("Time: %d", UInt16(array[2]) << 8 | UInt16(array[1]));
             
-            DataModel.sharedInstance.setBattery2(x: array[3]) //battery from 0 to about 110
+        DataModel.sharedInstance.setBattery2(x: array[3]) //battery from 0 to about 110
             
-            DataModel.sharedInstance.setPressure(x: ((Double(array[4]) + 10000.0 ) / 10.0))
+        DataModel.sharedInstance.setPressure(x: ((Double(array[4]) + 10000.0 ) / 10.0))
             
-            DataModel.sharedInstance.setTemperature(x: ((Double(array[5]) +   200.0 ) / 10.0));
+        DataModel.sharedInstance.setTemperature(x: ((Double(array[5]) +   200.0 ) / 10.0));
             
-            DataModel.sharedInstance.setHumidity(x: array[6]);
+        DataModel.sharedInstance.setHumidity(x: array[6]);
 
-            //light intensity - this is UINT 16 bits
-            uInt16Value = UInt16(array[8]) << 8 | UInt16(array[7])
-            DataModel.sharedInstance.setLightIntensity(x: UInt16(Double(uInt16Value) / 655.0) );
+        //light intensity - this is UINT 16 bits
+        uInt16Value = UInt16(array[8]) << 8 | UInt16(array[7])
+        DataModel.sharedInstance.setLightIntensity(x: UInt16(Double(uInt16Value) / 655.0) );
             
-            //Ax
-            Int16Value = Int16(array[10]) << 8 | Int16(array[9])
-            //arrayRes[6] = (Double(Int16Value) / 40.0) + 50.0
-            DataModel.sharedInstance.setAccelX(x: (Double(Int16Value) / 40.0) + 50.0 );
+        //Ax
+        Int16Value = Int16(array[10]) << 8 | Int16(array[9])
+        //arrayRes[6] = (Double(Int16Value) / 40.0) + 50.0
+        DataModel.sharedInstance.setAccelX(x: (Double(Int16Value) / 40.0) + 50.0 );
             
-            //Ay
-            Int16Value = Int16(array[12]) << 8 | Int16(array[11])
-            //rrayRes[7] = (Double(Int16Value) / 40.0) + 50.0
-            DataModel.sharedInstance.setAccelY(x: (Double(Int16Value) / 40.0) + 50.0 );
+        //Ay
+        Int16Value = Int16(array[12]) << 8 | Int16(array[11])
+        //rrayRes[7] = (Double(Int16Value) / 40.0) + 50.0
+        DataModel.sharedInstance.setAccelY(x: (Double(Int16Value) / 40.0) + 50.0 );
             
-            //Az
-            Int16Value = Int16(array[14]) << 8 | Int16(array[13])
-            DataModel.sharedInstance.setAccelZ(x: (Double(Int16Value) / 40.0) + 50.0 );
+        //Az
+        Int16Value = Int16(array[14]) << 8 | Int16(array[13])
+        DataModel.sharedInstance.setAccelZ(x: (Double(Int16Value) / 40.0) + 50.0 );
             
-            //Storage
-            DataModel.sharedInstance.setStorage(x: UInt16(array[16]) << 8 | UInt16(array[15]) );
-
-        //}
+        //Storage
+        DataModel.sharedInstance.setStorage(x: UInt16(array[16]) << 8 | UInt16(array[15]) );
         
     }
-    /*
-    func decodeMALocation(withData data:Data) -> String {
-        
-        let location = (data as NSData).bytes.bindMemory(to: UInt16.self, capacity: data.count)
-        
-        switch (location[0])
-        {
-            case 0:
-                return "Other"
-            case 1:
-                return "Chest"
-            case 2:
-                return "Wrist"
-            case 3:
-                return "Finger"
-            case 4:
-                return "Hand";
-            case 5:
-                return "Ear"
-            case 6:
-                return "Foot"
-            default:
-                return "Invalid";
-        }
     }
- */
-}

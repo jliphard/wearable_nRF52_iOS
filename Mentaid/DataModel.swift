@@ -46,7 +46,8 @@ class DataModel {
     private (set) var accelY:           Double = 0.0
     private (set) var accelZ:           Double = 0.0
     private (set) var storage:          UInt16 = 0
-    
+    private (set) var status:           UInt8 = 0
+
     private (set) var uploadToCloud:    Bool = false
     
     func setTicks(          x: UInt16 ) { self.ticks          = x }
@@ -60,7 +61,8 @@ class DataModel {
     func setAccelY(         x: Double ) { self.accelY         = x }
     func setAccelZ(         x: Double ) { self.accelZ         = x }
     func setStorage(        x: UInt16 ) { self.storage        = x }
-    
+    func setStatus(         x: UInt8  ) { self.status         = x }
+
     func setCloudUpload(    x: Bool )  { self.uploadToCloud   = x }
 
     
