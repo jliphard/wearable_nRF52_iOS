@@ -398,11 +398,26 @@
                                 <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2q-ke-z2T">
+                                <rect key="frame" x="89" y="549" width="197" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="17"/>
+                                <state key="normal" title="!!Memory Wipe!!">
+                                    <color key="titleColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="ConnectButtonPressed">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="WipeButtonTapped:" destination="9ph-JI-A6G" eventType="touchUpInside" id="ZwP-KC-xYi"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rg1-pT-QGn">
-                                <rect key="frame" x="131" y="504" width="119" height="32"/>
+                                <rect key="frame" x="104" y="465" width="167" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="17"/>
-                                <state key="normal" title="Upload data" backgroundImage="ConnectButton">
+                                <state key="normal" title="Replay Stored Data" backgroundImage="ConnectButton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -429,6 +444,8 @@
                         <outlet property="battery" destination="wMT-Da-Ii4" id="aEK-kJ-nGV"/>
                         <outlet property="connectionButton" destination="DP4-3N-4LK" id="PA1-hN-3WM"/>
                         <outlet property="deviceName" destination="tt3-gG-Slr" id="jC6-ow-0Gb"/>
+                        <outlet property="uploadButton" destination="Rg1-pT-QGn" id="HVg-cr-eco"/>
+                        <outlet property="wipeButton" destination="T2q-ke-z2T" id="nub-bs-8yK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uCd-5J-Yri" userLabel="First Responder" sceneMemberID="firstResponder"/>

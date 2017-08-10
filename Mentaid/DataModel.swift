@@ -36,8 +36,8 @@ class DataModel {
     private init() { }
     
     private (set) var ticks:            UInt16 = 0
-    private (set) var battery:          UInt8 = 0
-    private (set) var battery2:         UInt8 = 0
+    private (set) var batteryPercent:   UInt8 = 0
+    private (set) var batteryVoltage:   Double = 0.0
     private (set) var pressure:         Double = 0.0
     private (set) var temperature:      Double = 0.0
     private (set) var humidity:         UInt8 = 0
@@ -51,8 +51,8 @@ class DataModel {
     private (set) var uploadToCloud:    Bool = false
     
     func setTicks(          x: UInt16 ) { self.ticks          = x }
-    func setBattery(        x: UInt8  ) { self.battery        = x }
-    func setBattery2(       x: UInt8  ) { self.battery2       = x }
+    func setBatteryPercent( x: UInt8  ) { self.batteryPercent = x }
+    func setBatteryVoltage( x: Double ) { self.batteryVoltage = x }
     func setPressure(       x: Double ) { self.pressure       = x }
     func setTemperature(    x: Double ) { self.temperature    = x }
     func setHumidity(       x: UInt8  ) { self.humidity       = x }

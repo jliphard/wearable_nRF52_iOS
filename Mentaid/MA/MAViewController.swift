@@ -92,8 +92,10 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     @IBOutlet weak var battery: UIButton!
     @IBOutlet weak var deviceName: UILabel!
     @IBOutlet weak var connectionButton: UIButton!
-    @IBOutlet weak var uploadButton: UIButton!
     
+    @IBOutlet weak var uploadButton: UIButton!
+    @IBOutlet weak var wipeButton: UIButton!
+
     //Save to FLASH
     @IBOutlet var FIRM_SaveToFLASH_Switch: UISwitch!
     @IBOutlet var FIRM_SaveToFLASH_Switch_State: UILabel!
@@ -246,6 +248,26 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
                     for aCharacteristic : CBCharacteristic in aService.characteristics! {
                         if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID) {
                             print("Sent Replay command to MENTAID")
+                            peripheral?.writeValue(data as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @IBAction func WipeButtonTapped(_ sender: AnyObject) {
+        
+        if peripheral != nil
+        {
+            var parameter = NSInteger(43);
+            
+            let data = NSData(bytes: &parameter, length: 1)
+            for aService : CBService in (peripheral?.services!)! {
+                if aService.uuid.isEqual(maServiceUUID) {
+                    for aCharacteristic : CBCharacteristic in aService.characteristics! {
+                        if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID) {
+                            print("Sent Wipe command to MENTAID")
                             peripheral?.writeValue(data as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
                         }
                     }
@@ -464,8 +486,6 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
                 DataModel.sharedInstance.setStatus(x: status)
                 self.notify()
                 
-                print("Wearable status notifiction to: \(status)")
-                
                 //#define MA_FLAG_SAVE_TO_FLASH       (0x01 << 0)
                 //#define MA_FLAG_SAMPLE_SENSORS      (0x01 << 1)
                 //#define MA_FLAG_LIVESTREAM          (0x01 << 2)
@@ -512,11 +532,11 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             {
                 let data = characteristic.value as NSData?
                 let array : UnsafePointer<UInt8> = (data?.bytes)!.assumingMemoryBound(to: UInt8.self)
-                let batteryLevel : UInt8 = array[0]
-                let text = "\(batteryLevel)%"
+                let batteryPercent : UInt8 = array[0]
+                let text = "\(batteryPercent)%"
                 self.battery.setTitle(text, for: UIControlState.disabled)
                 
-                DataModel.sharedInstance.setBattery(x: batteryLevel)
+                DataModel.sharedInstance.setBatteryPercent(x: batteryPercent)
                 self.notify()
 
                 //not sure what this is doing...
@@ -576,13 +596,13 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             
         DataModel.sharedInstance.setTicks(x: UInt16(array[2]) << 8 | UInt16(array[1]))
             
-            //print("Time: %d", UInt16(array[2]) << 8 | UInt16(array[1]));
+        //print("Time: %d", UInt16(array[2]) << 8 | UInt16(array[1]));
             
-        DataModel.sharedInstance.setBattery2(x: array[3]) //battery from 0 to about 110
+        DataModel.sharedInstance.setBatteryVoltage(x: (Double(array[3]) + 300.0)/100.0) //battery voltage in Volts
             
         DataModel.sharedInstance.setPressure(x: ((Double(array[4]) + 10000.0 ) / 10.0))
             
-        DataModel.sharedInstance.setTemperature(x: ((Double(array[5]) +   200.0 ) / 10.0));
+        DataModel.sharedInstance.setTemperature(x: ((Double(array[5]) + 200.0 ) / 10.0));
             
         DataModel.sharedInstance.setHumidity(x: array[6]);
 

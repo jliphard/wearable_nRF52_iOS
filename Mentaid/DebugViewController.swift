@@ -345,15 +345,15 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
     {
         //function not used right now but will be useful down the road
         
-        S1C1.text = "-";
-        S1C2.text = "-";
-        S1C3.text = "-";
-        S1C4.text = "-";
-        S1C5.text = "-";
-        S1C6.text = "-";
-        S1C7.text = "-";
-        S1C8.text = "-";
-        S1C9.text = "-";
+        S1C1.text  = "-";
+        S1C2.text  = "-";
+        S1C3.text  = "-";
+        S1C4.text  = "-";
+        S1C5.text  = "-";
+        S1C6.text  = "-";
+        S1C7.text  = "-";
+        S1C8.text  = "-";
+        S1C9.text  = "-";
         S1C10.text = "-";
         
         // Clear and reset the graph
@@ -462,7 +462,8 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
        if (DataModel.sharedInstance.uploadToCloud)
        {
           log.info([DataModel.sharedInstance.ticks,
-                    DataModel.sharedInstance.battery,
+                    DataModel.sharedInstance.batteryPercent,
+                    Int(DataModel.sharedInstance.batteryVoltage*100.0),
                     DataModel.sharedInstance.pressure,
                     Int(DataModel.sharedInstance.temperature*100.0),
                     DataModel.sharedInstance.humidity,
@@ -473,15 +474,16 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
                     DataModel.sharedInstance.storage])
         }
         
-        //add the data to record
+        //add the data to Chart Plotter
         ValuesCH1?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.ticks % 100) as Int))
         
         //print("Tick: \(Int(DataModel.sharedInstance.ticks))")
         
-        ValuesCH2?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.battery) as Int))
+        ValuesCH2?.add(NSDecimalNumber(value: DataModel.sharedInstance.batteryVoltage * 5.0 as Double)) //multiply 5 so it fits on the chart plotter nicely
         
         ValuesCH3?.add(NSDecimalNumber(value: (DataModel.sharedInstance.pressure) - 980.0 as Double))
-        ValuesCH4?.add(NSDecimalNumber(value: DataModel.sharedInstance.temperature as Double))
+        ValuesCH4?.add(NSDecimalNumber(value: (DataModel.sharedInstance.temperature)      as Double))
+        
         ValuesCH5?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.humidity) as Int))
         
         ValuesCH6?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.lightIntensity) as Int))
@@ -492,7 +494,8 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         
         //and update the text field
         self.S1C1.text = "\(Int(DataModel.sharedInstance.ticks))"
-        self.S1C2.text = "\(Int(DataModel.sharedInstance.battery))"
+        
+        self.S1C2.text = String(format:"%.2f", DataModel.sharedInstance.batteryVoltage)
         
         self.S1C3.text = String(format:"%.1f", DataModel.sharedInstance.pressure)
         self.S1C4.text = String(format:"%.1f", DataModel.sharedInstance.temperature)
@@ -530,8 +533,8 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         graph?.reloadData()
 
         //update the battery icon
-        let batteryLevel = DataModel.sharedInstance.battery
-        let text = "\(batteryLevel)%"
+        let batteryPercent = DataModel.sharedInstance.batteryPercent
+        let text = "\(batteryPercent)%"
         self.battery.setTitle(text, for: UIControlState.disabled)
         
         }
