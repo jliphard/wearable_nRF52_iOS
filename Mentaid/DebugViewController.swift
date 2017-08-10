@@ -458,17 +458,20 @@ class DebugViewController: UIViewController, CPTPlotDataSource, CPTPlotSpaceDele
         
         //upload into the cloud
         //control code?
-        log.info([DataModel.sharedInstance.ticks,
-                  DataModel.sharedInstance.battery,
-                  DataModel.sharedInstance.pressure,
-                  Int(DataModel.sharedInstance.temperature*100.0),
-                  DataModel.sharedInstance.humidity,
-                  DataModel.sharedInstance.lightIntensity,
-                  Int(DataModel.sharedInstance.accelX),
-                  Int(DataModel.sharedInstance.accelY),
-                  Int(DataModel.sharedInstance.accelZ),
-                  DataModel.sharedInstance.storage]
-        )   // prio 3, INFO in green
+        
+       if (DataModel.sharedInstance.uploadToCloud)
+       {
+          log.info([DataModel.sharedInstance.ticks,
+                    DataModel.sharedInstance.battery,
+                    DataModel.sharedInstance.pressure,
+                    Int(DataModel.sharedInstance.temperature*100.0),
+                    DataModel.sharedInstance.humidity,
+                    DataModel.sharedInstance.lightIntensity,
+                    Int(DataModel.sharedInstance.accelX),
+                    Int(DataModel.sharedInstance.accelY),
+                    Int(DataModel.sharedInstance.accelZ),
+                    DataModel.sharedInstance.storage])
+        }
         
         //add the data to record
         ValuesCH1?.add(NSDecimalNumber(value: Int(DataModel.sharedInstance.ticks % 100) as Int))

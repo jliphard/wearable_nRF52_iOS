@@ -77,11 +77,18 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     var bluetoothManager                : CBCentralManager?
     var isBluetoothOn                   : Bool?
     var isDeviceConnected               : Bool?
+    
     var batteryServiceUUID              : CBUUID
     var batteryLevelCharacteristicUUID  : CBUUID
+    
     var maServiceUUID                   : CBUUID
-    var maMeasurementCharacteristicUUID : CBUUID
-    var maLocationCharacteristicUUID    : CBUUID
+    
+    var maDataCharacteristicUUID        : CBUUID
+    var maCommandCharacteristicUUID     : CBUUID
+    var maStatusCharacteristicUUID      : CBUUID
+    
+    var old_status                      : UInt8 = 0
+    
     var peripheral                      : CBPeripheral?
     
     @IBOutlet weak var battery: UIButton!
@@ -90,16 +97,20 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     @IBOutlet weak var uploadButton: UIButton!
     
     //Save to FLASH
-    @IBOutlet var SaveToFLASH_Switch: UISwitch!
-    @IBOutlet var SaveToFLASH_Switch_State: UILabel!
+    @IBOutlet var FIRM_SaveToFLASH_Switch: UISwitch!
+    @IBOutlet var FIRM_SaveToFLASH_Switch_State: UILabel!
     
     //Stream via BLE
-    @IBOutlet var LiveStream_Switch: UISwitch!
-    @IBOutlet var LiveStream_Switch_State: UILabel!
+    @IBOutlet var FIRM_Stream_To_Phone_Switch: UISwitch!
+    @IBOutlet var FIRM_Stream_To_Phone_Switch_State: UILabel!
     
     //Sampling On/Off
-    @IBOutlet var Sampling_Switch: UISwitch!
-    @IBOutlet var Sampling_Switch_State: UILabel!
+    @IBOutlet var FIRM_Sensor_Sampling_Switch: UISwitch!
+    @IBOutlet var FIRM_Sensor_Sampling_Switch_State: UILabel!
+    
+    //Cloud upload On/Off
+    @IBOutlet var APP_Stream_to_Cloud_Switch: UISwitch!
+    @IBOutlet var APP_Stream_to_Cloud_Switch_State: UILabel!
     
     //MARK: - UIVIewController Actions
     @IBAction func connectionButtonTapped(_ sender: AnyObject) {
@@ -112,8 +123,10 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     //MARK: - UIViewController delegate
     required init?(coder aDecoder: NSCoder) {
         maServiceUUID                    = CBUUID(string: ServiceIdentifiers.maServiceUUIDString)
-        maMeasurementCharacteristicUUID  = CBUUID(string: ServiceIdentifiers.maCharacteristicUUIDString)
-        maLocationCharacteristicUUID     = CBUUID(string: ServiceIdentifiers.maSensorLocationCharacteristicUUIDString)
+        maDataCharacteristicUUID         = CBUUID(string: ServiceIdentifiers.maDataCharacteristicUUIDString)
+        maStatusCharacteristicUUID       = CBUUID(string: ServiceIdentifiers.maStatusCharacteristicUUIDString)
+        maCommandCharacteristicUUID      = CBUUID(string: ServiceIdentifiers.maCommandCharacteristicUUIDString)
+        
         batteryServiceUUID               = CBUUID(string: ServiceIdentifiers.batteryServiceUUIDString)
         batteryLevelCharacteristicUUID   = CBUUID(string: ServiceIdentifiers.batteryLevelCharacteristicUUIDString)
         super.init(coder: aDecoder)
@@ -121,20 +134,20 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isBluetoothOn           = false
-        isDeviceConnected       = false
-        peripheral              = nil
+        isBluetoothOn       = false
+        isDeviceConnected   = false
+        peripheral          = nil
     }
     
-    @IBAction func Sampling_SwitchChanged(Sampling_Switch: UISwitch) {
+    @IBAction func FIRM_Sensor_Sampling_SwitchChanged(FIRM_Sensor_Sampling_Switch: UISwitch) {
         
         var parameter = NSInteger(0);
         
-        if Sampling_Switch.isOn {
-            Sampling_Switch_State.text = "ON"
+        if FIRM_Sensor_Sampling_Switch.isOn {
+            FIRM_Sensor_Sampling_Switch_State.text = "ON"
             parameter = NSInteger(13);
         } else {
-            Sampling_Switch_State.text = "OFF"
+            FIRM_Sensor_Sampling_Switch_State.text = "OFF"
             parameter = NSInteger(12);
         }
         
@@ -144,8 +157,8 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             for aService : CBService in (peripheral?.services!)! {
                 if aService.uuid.isEqual(maServiceUUID) {
                     for aCharacteristic : CBCharacteristic in aService.characteristics! {
-                        if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID) {
-                            print("Sent Sampling command to MENTAID")
+                        if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID) {
+                            print("Sent Sensor Sampling command to MENTAID")
                             peripheral?.writeValue(command as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
                         }
                     }
@@ -154,15 +167,15 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         }
     }
     
-    @IBAction func FLASH_SwitchChanged(SaveToFLASH_Switch: UISwitch) {
+    @IBAction func FIRM_SaveToFLASH_SwitchChanged(FIRM_SaveToFLASH_Switch: UISwitch) {
         
         var parameter = NSInteger(0);
         
-        if SaveToFLASH_Switch.isOn {
-            SaveToFLASH_Switch_State.text = "ON"
+        if FIRM_SaveToFLASH_Switch.isOn {
+            FIRM_SaveToFLASH_Switch_State.text = "ON"
             parameter = NSInteger(33);
         } else {
-            SaveToFLASH_Switch_State.text = "OFF"
+            FIRM_SaveToFLASH_Switch_State.text = "OFF"
             parameter = NSInteger(32);
         }
         
@@ -172,8 +185,8 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             for aService : CBService in (peripheral?.services!)! {
                 if aService.uuid.isEqual(maServiceUUID) {
                     for aCharacteristic : CBCharacteristic in aService.characteristics! {
-                        if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID) {
-                            print("Sent Save command to MENTAID")
+                        if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID) {
+                            print("Sent Save to FLASH command to MENTAID")
                             peripheral?.writeValue(command as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
                         }
                     }
@@ -181,17 +194,29 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             }
         }
     }
-
     
-    @IBAction func LiveStream_SwitchChanged(LiveStream_Switch: UISwitch) {
+    @IBAction func APP_Stream_to_Cloud_SwitchChanged(APP_Stream_to_Cloud_Switch: UISwitch) {
+        
+        if APP_Stream_to_Cloud_Switch.isOn {
+            APP_Stream_to_Cloud_Switch_State.text = "ON"
+            DataModel.sharedInstance.setCloudUpload(x: true)
+        } else {
+            APP_Stream_to_Cloud_Switch_State.text = "OFF"
+            DataModel.sharedInstance.setCloudUpload(x: false)
+        }
+        self.notify()
+        
+    }
+
+    @IBAction func FIRM_Stream_To_Phone_SwitchChanged(FIRM_Stream_To_Phone_Switch: UISwitch) {
         
         var parameter = NSInteger(0);
         
-        if LiveStream_Switch.isOn {
-            LiveStream_Switch_State.text = "ON"
+        if FIRM_Stream_To_Phone_Switch.isOn {
+            FIRM_Stream_To_Phone_Switch_State.text = "ON"
             parameter = NSInteger(35);
         } else {
-            LiveStream_Switch_State.text = "OFF"
+            FIRM_Stream_To_Phone_Switch_State.text = "OFF"
             parameter = NSInteger(34);
         }
         
@@ -201,8 +226,8 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             for aService : CBService in (peripheral?.services!)! {
                 if aService.uuid.isEqual(maServiceUUID) {
                     for aCharacteristic : CBCharacteristic in aService.characteristics! {
-                        if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID) {
-                            print("Sent LiveStream command to MENTAID")
+                        if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID) {
+                            print("Sent LiveStream to iPhone command to MENTAID")
                             peripheral?.writeValue(command as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
                         }
                     }
@@ -211,7 +236,7 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         }
     }
 
-    @IBAction func UploadButtonTapped(_ sender: AnyObject) {
+    @IBAction func ReplayButtonTapped(_ sender: AnyObject) {
         
         if peripheral != nil
         {
@@ -221,8 +246,8 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
             for aService : CBService in (peripheral?.services!)! {
                 if aService.uuid.isEqual(maServiceUUID) {
                     for aCharacteristic : CBCharacteristic in aService.characteristics! {
-                        if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID) {
-                            print("Sent Upload command to MENTAID")
+                        if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID) {
+                            print("Sent Replay command to MENTAID")
                             //peripheral?.readValue(for: aCharacteristic)
                             peripheral?.writeValue(data as Data, for: aCharacteristic, type: CBCharacteristicWriteType.withResponse)
                         }
@@ -277,14 +302,16 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral)
     {
         // Scanner uses other queue to send events. We must edit UI in the main queue
-        
+
         DispatchQueue.main.async {
             //We are connected - YAY!
             self.deviceName.text = peripheral.name
             self.connectionButton.setTitle("DISCONNECT", for: UIControlState())
-            self.SaveToFLASH_Switch.isEnabled = true
-            self.Sampling_Switch.isEnabled = true
-            self.LiveStream_Switch.isEnabled = true
+            
+            self.FIRM_SaveToFLASH_Switch.isEnabled      = true
+            self.FIRM_Sensor_Sampling_Switch.isEnabled  = true
+            self.FIRM_Stream_To_Phone_Switch.isEnabled  = true
+            self.APP_Stream_to_Cloud_Switch.isEnabled   = true
         }
         
         if UIApplication.instancesRespond(to: #selector(UIApplication.registerUserNotificationSettings(_:))){
@@ -313,9 +340,12 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         //DISCONNECT EVENT
         DispatchQueue.main.async(execute: {
             
-            self.SaveToFLASH_Switch.isEnabled = false
-            self.Sampling_Switch.isEnabled = false
-            self.LiveStream_Switch.isEnabled = false
+            self.FIRM_SaveToFLASH_Switch.isEnabled      = false
+            self.FIRM_Sensor_Sampling_Switch.isEnabled  = false
+            self.FIRM_Stream_To_Phone_Switch.isEnabled  = false
+            self.APP_Stream_to_Cloud_Switch.isEnabled   = false
+            
+            self.old_status = 0 //so we set the radio buttons correctly the next time around
             
             self.connectionButton.setTitle("CONNECT", for: UIControlState())
             self.peripheral = nil;
@@ -368,14 +398,19 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         {
             for aCharacteristic : CBCharacteristic in service.characteristics!
             {
-                if aCharacteristic.uuid.isEqual(maMeasurementCharacteristicUUID)
+                if aCharacteristic.uuid.isEqual(maDataCharacteristicUUID)
                 {
-                    print("Mentaid measurement characteristic found")
+                    print("Mentaid Data characteristic found")
                     peripheral.setNotifyValue(true, for: aCharacteristic)
                 }
-                else if aCharacteristic.uuid.isEqual(maLocationCharacteristicUUID)
+                else if aCharacteristic.uuid.isEqual(maStatusCharacteristicUUID)
                 {
-                    print("Mentaid sensor location characteristic found")
+                    print("Mentaid Sensor Status characteristic found")
+                    peripheral.readValue(for: aCharacteristic)
+                }
+                else if aCharacteristic.uuid.isEqual(maCommandCharacteristicUUID)
+                {
+                    print("Mentaid Sensor Command characteristic found")
                     peripheral.readValue(for: aCharacteristic)
                 }
             }
@@ -410,19 +445,52 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         
         DispatchQueue.main.async
         {
-            if characteristic.uuid.isEqual(self.maMeasurementCharacteristicUUID)
+            if characteristic.uuid.isEqual(self.maDataCharacteristicUUID)
             {
                 //and now we need to move this into the data model
                 self.decodeAndShareValues(withData: characteristic.value!)
-                
                 //and now we need to notify everyone
-                self.notify()
+                self.notify() //we have new data in the datamodel
             }
-            else if characteristic.uuid.isEqual(self.maLocationCharacteristicUUID)
+            else if characteristic.uuid.isEqual(self.maStatusCharacteristicUUID)
             {
-                //self.decodeMALocation(withData: characteristic.value!)
-                //we can use this to keep track of recent commands
-                //TODO TODO TODO
+                //this is horrible way to do this, but it's late and this just needs to owrk
+                //FIX FIX FIX
+                //need real service for the status with notifications
+
+                peripheral.readValue(for: characteristic)
+
+                let data = characteristic.value as NSData?
+                let array : UnsafePointer<UInt8> = (data?.bytes)!.assumingMemoryBound(to: UInt8.self)
+                let status : UInt8 = array[0]
+                
+                if ( self.old_status != status )
+                {
+                    print("Wearable status changed to: \(status)")
+                    
+                    //when we disconnect, we need to zero the
+                    self.old_status = status
+                    
+                    //#define MA_FLAG_SAVE_TO_FLASH       (0x01 << 0)
+                    //#define MA_FLAG_SAMPLE_SENSORS      (0x01 << 1)
+                    //#define MA_FLAG_LIVESTREAM          (0x01 << 2)
+                    
+                    if( (status & (1 << 0) == 1 << 0) ) {
+                        //this is really only critical when booting up
+                        self.FIRM_SaveToFLASH_Switch.setOn(true, animated: true)
+                        self.FIRM_SaveToFLASH_Switch_State.text = "ON"
+                    } else {
+                        self.FIRM_SaveToFLASH_Switch.setOn(false, animated: true)
+                        self.FIRM_SaveToFLASH_Switch_State.text = "OFF"
+                    }
+                    
+                    /*
+                    if( SaveToFLASH )   status |= MA_FLAG_SAVE_TO_FLASH;
+                    if( SampleSensors ) status |= MA_FLAG_SAMPLE_SENSORS;
+                    if( LiveStream )    status |= MA_FLAG_LIVESTREAM;
+                     */
+                    
+                }
             }
             else if characteristic.uuid.isEqual(self.batteryLevelCharacteristicUUID)
             {
@@ -534,7 +602,7 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
         //}
         
     }
-    
+    /*
     func decodeMALocation(withData data:Data) -> String {
         
         let location = (data as NSData).bytes.bindMemory(to: UInt16.self, capacity: data.count)
@@ -559,4 +627,5 @@ class MAViewController: BaseViewController, CBCentralManagerDelegate, CBPeripher
                 return "Invalid";
         }
     }
+ */
 }

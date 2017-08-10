@@ -35,17 +35,19 @@ class DataModel {
     static let sharedInstance = DataModel()
     private init() { }
     
-    private (set) var ticks:        UInt16 = 0
-    private (set) var battery:      UInt8 = 0
-    private (set) var battery2:     UInt8 = 0
-    private (set) var pressure:     Double = 0.0
-    private (set) var temperature:  Double = 0.0
-    private (set) var humidity:     UInt8 = 0
-    private (set) var lightIntensity: UInt16 = 0
-    private (set) var accelX:       Double = 0.0
-    private (set) var accelY:       Double = 0
-    private (set) var accelZ:       Double = 0
-    private (set) var storage:      UInt16 = 0
+    private (set) var ticks:            UInt16 = 0
+    private (set) var battery:          UInt8 = 0
+    private (set) var battery2:         UInt8 = 0
+    private (set) var pressure:         Double = 0.0
+    private (set) var temperature:      Double = 0.0
+    private (set) var humidity:         UInt8 = 0
+    private (set) var lightIntensity:   UInt16 = 0
+    private (set) var accelX:           Double = 0.0
+    private (set) var accelY:           Double = 0.0
+    private (set) var accelZ:           Double = 0.0
+    private (set) var storage:          UInt16 = 0
+    
+    private (set) var uploadToCloud:    Bool = false
     
     func setTicks(          x: UInt16 ) { self.ticks          = x }
     func setBattery(        x: UInt8  ) { self.battery        = x }
@@ -58,6 +60,8 @@ class DataModel {
     func setAccelY(         x: Double ) { self.accelY         = x }
     func setAccelZ(         x: Double ) { self.accelZ         = x }
     func setStorage(        x: UInt16 ) { self.storage        = x }
+    
+    func setCloudUpload(    x: Bool )  { self.uploadToCloud   = x }
 
     
 }
