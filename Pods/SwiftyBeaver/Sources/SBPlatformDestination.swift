@@ -293,7 +293,12 @@ public class SBPlatformDestination: BaseDestination {
                     toNSLog("Error! Could not set basic auth header")
                     return complete(false, 0)
             }
+
+            #if os(Linux)
+            let base64Credentials = Base64.encode([UInt8](credentials))
+            #else
             let base64Credentials = credentials.base64EncodedString(options: [])
+            #endif
             request.setValue("Basic \(base64Credentials)", forHTTPHeaderField: "Authorization")
             //toNSLog("\nrequest:")
             //print(request)
@@ -337,6 +342,7 @@ public class SBPlatformDestination: BaseDestination {
                 return complete(ok, status)
             }
             task.resume()
+            session.finishTasksAndInvalidate()
             //while true {} // commenting this line causes a crash on Linux unit tests?!?
         }
     }
